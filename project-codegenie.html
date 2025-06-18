@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case Study: CodeGenie - Interactive Coding Platform by Prakarsh Awasthi" />
+  <meta name="keywords" content="CodeGenie, Project, Case Study, Frontend, Full Stack, React, Firebase, Coding Platform, Prakarsh Awasthi" />
+  <meta name="author" content="Prakarsh Awasthi" />
+  <meta property="og:title" content="CodeGenie | Prakarsh Awasthi's Portfolio" />
+  <meta property="og:description" content="Detailed case study of CodeGenie, an interactive coding platform." />
+  <meta property="og:type" content="website" />
+
+  <title>CodeGenie | Prakarsh Awasthi's Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header>
+    <div class="mode-toggle">
+      <label class="switch">
+        <input type="checkbox" id="toggle-mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <h1>CodeGenie Project</h1>
+    <p>Detailed Case Study: Interactive Coding Platform</p>
+    <nav class="header-nav">
+      <a href="index.html#projects" class="scroll-link">← Back to Projects</a>
+      <a href="index.html#contact" class="scroll-link">Contact Me</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="project-overview" data-aos="fade-up">
+      <h2>Project Overview</h2>
+      <div class="project-hero-image">
+        <img src="images/main page.png" alt="CodeGenie Platform Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/800x450/AD87C0/FFFFFF?text=Image+Not+Available';">
+      </div>
+      <p>CodeGenie is an interactive web platform designed to help aspiring coders improve their skills through engaging challenges, quizzes, and real-time feedback. It aims to provide a dynamic and supportive environment for learning programming concepts and practicing coding skills.</p>
+
+      <div class="project-links-detail">
+        <a href="https://codegenie-7650c.web.app" target="_blank" class="project-btn live-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        <a href="https://github.com/prakarsh34/CodeGenie.git" target="_blank" class="project-btn github-link"><i class="fab fa-github"></i> GitHub Repo</a>
+      </div>
+    </section>
+
+    <section id="problem-solution" data-aos="fade-up">
+      <h2>Problem & Solution</h2>
+      <div class="content-block">
+        <h3>The Challenge:</h3>
+        <p>Many online coding platforms offer static problems with limited immediate feedback, making it hard for learners to understand *why* their code fails or how to improve efficiently. The user experience can often feel isolated and unengaging.</p>
+        <h3>My Solution:</h3>
+        <p>CodeGenie was built to provide a more dynamic and interactive learning experience. By integrating real-time code execution, immediate error highlighting, and personalized hints, learners can rapidly iterate and grasp concepts more effectively. The platform also fosters engagement through gamified elements and progress tracking.</p>
+      </div>
+    </section>
+
+    <section id="my-role" data-aos="fade-up">
+      <h2>My Role & Contributions</h2>
+      <div class="content-block">
+        <p>As a **Full Stack Developer** on this project, my primary responsibilities spanned both frontend and backend development, ensuring a seamless and functional application:</p>
+        <ul class="contributions-list">
+          <li><strong>Frontend Development:</strong>
+            <ul>
+              <li>Designed and implemented the responsive user interface using <strong>React.js</strong>, focusing on component reusability and intuitive navigation.</li>
+              <li>Managed application state effectively with **React Context API** to ensure data consistency across components.</li>
+              <li>Developed interactive coding challenge modules, including dynamic text areas and output displays.</li>
+              <li>Ensured cross-browser compatibility and optimized rendering performance for a smooth user experience.</li>
+            </ul>
+          </li>
+          <li><strong>Backend Integration:</strong>
+            <ul>
+              <li>Integrated frontend with a **Firebase Firestore** backend for secure user authentication (via Firebase Authentication) and efficient data storage (user profiles, quiz results, challenge progress).</li>
+              <li>Implemented secure data retrieval and submission mechanisms following best practices for NoSQL databases.</li>
+            </ul>
+          </li>
+          <li><strong>Testing & Debugging:</strong>
+            <ul>
+              <li>Conducted thorough unit and integration testing of components and API integrations.</li>
+              <li>Performed debugging and error handling to ensure application stability and reliability.</li>
+            </ul>
+          </li>
+          <li><strong>Collaboration:</strong>
+            <ul>
+              <li>Participated actively in agile sprint planning, daily stand-ups, and code review sessions with teammates.</li>
+              <li>Contributed to architectural decisions and problem-solving discussions to enhance overall project quality.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="technologies" data-aos="fade-up">
+      <h2>Technologies Used</h2>
+      <div class="content-block">
+        <ul class="tech-stack-list">
+          <li><i class="fab fa-js-square"></i> JavaScript (ES6+)</li>
+          <li><i class="fab fa-html5"></i> HTML5</li>
+          <li><i class="fab fa-css3-alt"></i> CSS3 / SASS (if used)</li>
+          <li><i class="fas fa-database"></i> Firebase (Firestore, Authentication, Hosting)</li>
+          <li><i class="fas fa-laptop-code"></i> Visual Studio Code (VS Code)</li>
+          <li><i class="fas fa-cogs"></i> Webpack / Vite (or other bundler)</li>
+          <li><i class="fab fa-git-alt"></i> Git & GitHub</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="challenges-learnings" data-aos="fade-up">
+      <h2>Challenges & Learnings</h2>
+      <div class="content-block">
+        <p>Building CodeGenie presented several valuable learning opportunities:</p>
+        <ul>
+          <li><strong>Real-time Code Execution:</strong> Integrating a secure and efficient way to execute user-submitted code in real-time was a complex challenge, requiring careful consideration of sandbox environments and performance. This taught me a lot about backend interaction and security.</li>
+          <li><strong>State Management:</strong> As the application grew, managing complex state across many components became crucial. I gained deeper experience with React Context API and optimized data flow to prevent unnecessary re-renders.</li>
+          <li><strong>Scalable Firestore Design:</strong> Designing the Firestore database schema to be efficient for querying user progress and large sets of challenges was a key learning. Understanding indexing and data modeling for NoSQL was vital.</li>
+          <li><strong>User Experience Iteration:</strong> Continuously refining the UI based on user feedback to ensure the learning path was intuitive and motivating. This reinforced the importance of iterative design.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="screenshots" data-aos="fade-up">
+      <h2>Screenshots</h2>
+      <div class="screenshot-gallery">
+  <img src="images/Login.png" alt="CodeGenie Login Page Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/400x250/AD87C0/FFFFFF?text=Image+Not+Available';">
+  <img src="images/quiz.png" alt="CodeGenie Quiz Challenge Page Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/400x250/AD87C0/FFFFFF?text=Image+Not+Available';">
+  </div>
+    </section>
+
+    <section id="future-plans" data-aos="fade-up">
+      <h2>Future Enhancements</h2>
+      <div class="content-block">
+        <p>I plan to continue enhancing CodeGenie by:</p>
+        <ul>
+          <li>Implementing a user-specific dashboard for more detailed progress tracking.</li>
+          <li>Adding more advanced coding challenges and diverse programming language support.</li>
+          <li>Exploring integration with AI for more intelligent feedback and personalized learning paths.</li>
+          <li>Building a community forum for users to discuss problems and solutions.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://github.com/prakarsh34" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://www.linkedin.com/in/prakarsh-awasthi-332614312/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <a href="https://www.instagram.com/prakarsh_34/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    </div>
+    <p>© 2025 Prakarsh Awasthi · Built with ❤️</p>
+  </footer>
+
+  <script src="script.js"></script> <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+    // Add logic for theme toggle if needed on this page
+    const toggleMode = document.getElementById('toggle-mode');
+    if (toggleMode) {
+      toggleMode.addEventListener('change', () => {
+        document.body.classList.toggle('light-mode');
+        if (document.body.classList.contains('light-mode')) {
+          localStorage.setItem('theme', 'light');
+        } else {
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+      // Apply saved theme on load
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+          document.body.classList.add('light-mode');
+          toggleMode.checked = true;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
