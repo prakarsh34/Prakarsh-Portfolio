@@ -62,7 +62,7 @@
         <ul class="contributions-list">
           <li><strong>Frontend Development:</strong>
             <ul>
-              <li>Designed and implemented the responsive user interface using <strong>React.js</strong>, focusing on component reusability and intuitive navigation.</li>
+              <li>Designed and implemented the responsive user interface using <strong>Html & css</strong>, focusing on component reusability and intuitive navigation.</li>
               <li>Managed application state effectively with **React Context API** to ensure data consistency across components.</li>
               <li>Developed interactive coding challenge modules, including dynamic text areas and output displays.</li>
               <li>Ensured cross-browser compatibility and optimized rendering performance for a smooth user experience.</li>
@@ -70,7 +70,7 @@
           </li>
           <li><strong>Backend Integration:</strong>
             <ul>
-              <li>Integrated frontend with a **Firebase Firestore** backend for secure user authentication (via Firebase Authentication) and efficient data storage (user profiles, quiz results, challenge progress).</li>
+              <li>Integrated frontend with a <strong>Firebase Firestore</strong> backend for secure user authentication (via Firebase Authentication) and efficient data storage (user profiles, quiz results, challenge progress).</li>
               <li>Implemented secure data retrieval and submission mechanisms following best practices for NoSQL databases.</li>
             </ul>
           </li>
@@ -121,9 +121,9 @@
     <section id="screenshots" data-aos="fade-up">
       <h2>Screenshots</h2>
       <div class="screenshot-gallery">
-  <img src="images/Login.png" alt="CodeGenie Login Page Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/400x250/AD87C0/FFFFFF?text=Image+Not+Available';">
-  <img src="images/quiz.png" alt="CodeGenie Quiz Challenge Page Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/400x250/AD87C0/FFFFFF?text=Image+Not+Available';">
-  </div>
+        <img src="images/Login.png" alt="CodeGenie Login Page Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/400x250/AD87C0/FFFFFF?text=Image+Not+Available';">
+        <img src="images/quiz.png" alt="CodeGenie Quiz Challenge Page Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/400x250/AD87C0/FFFFFF?text=Image+Not+Available';">
+      </div>
     </section>
 
     <section id="future-plans" data-aos="fade-up">
@@ -149,32 +149,7 @@
     <p>© 2025 Prakarsh Awasthi · Built with ❤️</p>
   </footer>
 
-  <script src="script.js"></script> <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 800,
-      once: true
-    });
-    // Add logic for theme toggle if needed on this page
-    const toggleMode = document.getElementById('toggle-mode');
-    if (toggleMode) {
-      toggleMode.addEventListener('change', () => {
-        document.body.classList.toggle('light-mode');
-        if (document.body.classList.contains('light-mode')) {
-          localStorage.setItem('theme', 'light');
-        } else {
-          localStorage.setItem('theme', 'dark');
-        }
-      });
-      // Apply saved theme on load
-      document.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-          document.body.classList.add('light-mode');
-          toggleMode.checked = true;
-        }
-      });
-    }
-  </script>
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
 </html>
