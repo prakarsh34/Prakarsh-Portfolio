@@ -36,6 +36,38 @@ function applyTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 
+// --- Form Validation Helper ---
+function showValidationMessage(inputElement, message) {
+    const formGroup = inputElement.closest('.form-group');
+    if (!formGroup) return; // Exit if not part of a form-group
+
+    let errorMessageElement = formGroup.querySelector('.error-message');
+    if (!errorMessageElement) {
+        errorMessageElement = document.createElement('div');
+        errorMessageElement.classList.add('error-message');
+        formGroup.appendChild(errorMessageElement);
+    }
+    errorMessageElement.textContent = message;
+    formGroup.classList.add('invalid');
+}
+
+function clearValidationMessage(inputElement) {
+    const formGroup = inputElement.closest('.form-group');
+    if (!formGroup) return;
+
+    const errorMessageElement = formGroup.querySelector('.error-message');
+    if (errorMessageElement) {
+        errorMessageElement.textContent = '';
+    }
+    formGroup.classList.remove('invalid');
+}
+
+function isValidEmail(email) {
+    // Simple regex for email validation
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
 
 // --- Main Initialization on DOMContentLoaded ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -107,19 +139,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only set up contact form listener if the form element exists on the current page
     if (contactForm) {
+        // Add event listeners for input changes to clear errors dynamically
+        ['contactName', 'contactEmail', 'contactMessage'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('input', () => clearValidationMessage(input));
+                input.addEventListener('blur', () => { // Validate on blur
+                    if (id === 'contactName' && input.value.trim() === '') {
+                        showValidationMessage(input, 'Name is required.');
+                    } else if (id === 'contactEmail') {
+                        if (input.value.trim() === '') {
+                            showValidationMessage(input, 'Email is required.');
+                        } else if (!isValidEmail(input.value.trim())) {
+                            showValidationMessage(input, 'Please enter a valid email address.');
+                        }
+                    } else if (id === 'contactMessage' && input.value.trim() === '') {
+                        showValidationMessage(input, 'Message cannot be empty.');
+                    }
+                });
+            }
+        });
+
+
         contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Prevent default form submission
+
+            // Clear previous validation messages before re-validating
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-group.invalid').forEach(el => el.classList.remove('invalid'));
+
+            let isValid = true;
+
+            const nameInput = document.getElementById('contactName');
+            const emailInput = document.getElementById('contactEmail');
+            const messageInput = document.getElementById('contactMessage');
+
+            // Validate Name
+            if (nameInput.value.trim() === '') {
+                showValidationMessage(nameInput, 'Name is required.');
+                isValid = false;
+            }
+
+            // Validate Email
+            if (emailInput.value.trim() === '') {
+                showValidationMessage(emailInput, 'Email is required.');
+                isValid = false;
+            } else if (!isValidEmail(emailInput.value.trim())) {
+                showValidationMessage(emailInput, 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            // Validate Message
+            if (messageInput.value.trim() === '') {
+                showValidationMessage(messageInput, 'Message cannot be empty.');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                formStatus.textContent = 'Please correct the errors above.';
+                formStatus.style.color = '#dc3545'; // Red
+                return; // Stop submission if validation fails
+            }
+
+            // If validation passes, proceed with Firebase submission
             formStatus.textContent = 'Sending...';
             formStatus.style.color = '#ffd700'; // Yellow/gold
 
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contactMessage').value;
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const message = messageInput.value;
 
             try {
-                // Ensure 'firebase' object is available globally from firebase-init.js
-                // If you're using modular Firebase SDK (import { db } from './firebase-init.js';)
-                // then you'd need to adjust this. For most simple portfolio setups, it's global.
                 const db = firebase.firestore(); // Access Firestore instance
 
                 const docRef = await db.collection('contacts').add({
@@ -132,6 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 formStatus.textContent = 'Message sent successfully!';
                 formStatus.style.color = '#28a745'; // Green
                 contactForm.reset();
+                // Clear any lingering validation styles/messages after successful submit
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                document.querySelectorAll('.form-group.invalid').forEach(el => el.classList.remove('invalid'));
+
             } catch (error) {
                 console.error("Error adding document: ", error);
                 formStatus.textContent = 'Failed to send message. Please try again.';
@@ -140,11 +234,194 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Initialize AOS (must be called after AOS library is loaded and DOM is ready)
+    // 5. Back to Top Button Logic
+    const backToTopButton = document.getElementById('back-to-top');
+
+    if (backToTopButton) {
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Scroll to top on button click
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+
+    // 6. Initialize AOS (must be called after AOS library is loaded and DOM is ready)
     // This will run after the theme is set, ensuring correct animations based on initial styling.
     AOS.init({
         duration: 800,
         once: true
     });
+
+    // 7. Initialize particles.js
+    // Ensure the particles.js library is loaded BEFORE this script runs
+    // and that you have a div with id="particles-js" in your HTML.
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff" // Particle color (white)
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff", // Line color (white)
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab" // Link particles on hover
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push" // Push particles on click
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        const updateParticleColors = () => {
+            const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            let particleColor = "#ffffff"; // Default for dark mode
+            let lineColor = "#ffffff"; // Default for dark mode
+
+            if (currentTheme === 'light') {
+                particleColor = "#333333"; // Darker particles for light mode
+                lineColor = "#666666"; // Darker lines for light mode
+            }
+
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": particleColor },
+                    "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+                    "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                    "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+                    "line_linked": { "enable": true, "distance": 150, "color": lineColor, "opacity": 0.4, "width": 1 },
+                    "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": { "enable": true, "mode": "grab" },
+                        "onclick": { "enable": true, "mode": "push" },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+                        "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
+                        "repulse": { "distance": 200, "duration": 0.4 },
+                        "push": { "particles_nb": 4 },
+                        "remove": { "particles_nb": 2 }
+                    }
+                },
+                "retina_detect": true
+            });
+        };
+
+        // Call once to set initial particle colors based on theme
+        updateParticleColors();
+
+        // Listen for theme changes and update particle colors
+        if (themeToggle) {
+            themeToggle.addEventListener('change', updateParticleColors);
+        }
+    } else {
+        console.warn('particles.js library not found. Ensure it is loaded before script.js.');
+    }
 
 }); // End of DOMContentLoaded listener
